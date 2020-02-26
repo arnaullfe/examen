@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 import examen.classes.Admin;
+import examen.classes.Lector;
 import examen.classes.Post;
 import examen.classes.Usuari;
 import examen.functions.Functions;
@@ -80,25 +81,85 @@ public class Principal {
                         case 3:
                             Functions.mostraPostsInfo(posts);
                             int eliminar = sc.nextInt();
+                            posts.remove(Functions.elimina(posts, eliminar));
+                            System.out.println("Post eliminat....");
+                            Functions.mostraPostsInfo(posts);
                             break;
                         case 4:
-                            // lector to editor
+                            Functions.llistar(rols[2], usuaris);
+                            System.out.println("Escriu el nom d'usuari del lector:");
+                            String usuariCanvi = sc.nextLine();
+                            if(Functions.getUsuari(usuaris,usuariCanvi).getRol().equals(rols[2])){
+                                usuaris.add(Functions.LectorToEditor(Functions.getUsuari(usuaris, usuariCanvi), rols[1]));
+                                usuaris.remove(Functions.posicioUsuari(usuaris, usuariCanvi));
+                            } else{
+                                System.out.println("Error, l'usuari no és lector");
+                            }
                             break;
                         case 5:
-                            // llistar editors
+                            Functions.llistar(rols[1], usuaris);
+                            System.out.println("-----------------------");
+                            System.out.println("Enter per continuar");
+                            sc.nextLine();
                             break;
                         case 6:
-                            // llistar lectors
+                            Functions.llistar(rols[2], usuaris);
+                            System.out.println("-----------------------");
+                            System.out.println("Enter per continuar");
+                            sc.nextLine();
                             break;
                         case 0:
                             break logout;
+                        }
+                    } else if (Functions.getUsuari(usuaris, userLogin).getRol().equals(rols[1])){
+                        switch(opcioUsuari){
+                            case 1:
+                            System.out.println("Introdueix el títol:");
+                            Post post = new Post(sc.nextLine(),id);
+                            System.out.println("Introdueix el contingut:");
+                            post.setContingut(sc.nextLine());
+                            System.out.println("El contingut és per majors de 18? (S/N)");
+                            String major = sc.nextLine();
+                            if (major.equalsIgnoreCase("S")) {
+                                post.setMajors18(true);
+                            } else {
+                                post.setMajors18(false);
+                            }
+                            post.setCreador(Functions.getUsuari(usuaris, userLogin));
+                            post.setDia(LocalDateTime.now());
+                            posts.add(post);
+                            id++;
+                            break;
+                            case 2:
+                            Functions.llistar(rols[1], usuaris);
+                            System.out.println("-----------------------");
+                            System.out.println("Escriu el nom de l'editor: ");
+                            String editor = sc.nextLine();
+                            if(Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])){
+                                usuaris.get(Functions.posicioUsuari(usuaris, userLogin)).afegirArray(Functions.getUsuari(usuaris, editor));
+                            } else{
+                                System.out.println("L'usuari no és editor");
+                            }
+                            break;
+                            case 3:
+                            Functions.getUsuari(usuaris,userLogin).veureArray();
+                            break;
+                            case 4:
+                            //meu mur
+                            break;
                         }
                     }
 
                 }
                 break;
             case 2:
-                // registre lector
+                System.out.println("Digues el nom d'usuari únic: ");
+                Lector lector = new Lector(sc.nextLine(), rols[2]);
+                System.out.println("Introdueix el password");
+                lector.setPasswd(sc.nextLine());
+                System.out.println("Introdueix la data de naixament: (dd/MM/yyyy)");
+                lector.setMajor(Functions.major(sc.nextLine()));
+                usuaris.add(lector);
                 break;
             case 3:
                 System.out.println("Fins un altre!");

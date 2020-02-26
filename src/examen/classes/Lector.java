@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Lector extends Usuari {
     private ArrayList<Usuari> follows = new ArrayList<>();
+    private boolean major;
 
     public Lector(String username,String rol) {
         super(username,rol);
@@ -17,6 +18,14 @@ public class Lector extends Usuari {
         this.follows = follows;
     }
 
+    public boolean isMajor() {
+        return major;
+    }
+
+    public void setMajor(boolean major) {
+        this.major = major;
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub
@@ -28,6 +37,28 @@ public class Lector extends Usuari {
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public ArrayList<Usuari> follows() {
+        return this.follows;
+    }
+
+    @Override
+    public void afegirArray(Usuari usuari) {
+        this.follows.add(usuari);
+    }
+
+    @Override
+    public void veureArray() {
+        System.out.println("Editors seguits per "+this.username);
+        System.out.println("----------------------------------");
+        for(Usuari a : this.follows){
+            System.out.println(a.username);
+        }
+        System.out.println("----------------------------------");
+    }
+
+   
     
     
     

@@ -1,8 +1,10 @@
 package examen.classes;
 
-public class Admin extends Usuari{
+import java.util.ArrayList;
 
-    public Admin(String username,String rol) {
+public class Admin extends Usuari {
+
+    public Admin(String username, String rol) {
         super(username, rol);
     }
 
@@ -11,9 +13,9 @@ public class Admin extends Usuari{
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
-    public void menuUsuari(){
+    public void menuUsuari() {
         System.out.println("-------------------------------");
         System.out.println("1 - Crear un post");
         System.out.println("2 - Llistar tots els post");
@@ -23,6 +25,24 @@ public class Admin extends Usuari{
         System.out.println("6 - Llistar Lectors");
         System.out.println("0 - Log out");
         System.out.println("-------------------------------");
+    }
+
+    @Override
+    public ArrayList<Usuari> follows() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void afegirArray(Usuari usuari) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void veureArray() {
+        // TODO Auto-generated method stub
+
     }
     
 }

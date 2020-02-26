@@ -1,9 +1,13 @@
 package examen.functions;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import examen.classes.Editor;
+import examen.classes.Lector;
 import examen.classes.Post;
 import examen.classes.Usuari;
 
@@ -80,5 +84,50 @@ public class Functions {
             a.mostraInfo();
         }
     }
-    public static void elimina(ArrayList<Post> posts)
+    public static int elimina(ArrayList<Post> posts,int id){
+        for(Post a: posts){
+            if(id==a.getId()){
+                return posts.indexOf(a);
+            }
+        }
+        return -1;
+    }
+    public static void llistar(String rol,ArrayList<Usuari> usuaris){
+        System.out.println("Llistat de usuaris amb rol de "+rol);
+        System.out.println("--------------------------------------");
+        for(Usuari a : usuaris){
+            if(rol.equals(a.getRol())){
+                System.out.println(a.getUsername());
+            }
+        }
+    }
+    public static boolean major(String data){
+        boolean major;
+        String [] array = data.split("/");
+        LocalDate ld = LocalDate.parse(array[2]+"-"+array[1]+"-"+array[0]);
+        Period period = Period.between(ld, LocalDate.now());
+        int anys = period.getYears();
+        if(anys>=18){
+            major=true;
+        } else{
+            major=false;
+        }
+        System.out.println("Anys: "+anys);
+        return major;
+    }
+    public static Usuari LectorToEditor(Usuari lector,String rol){
+        Editor editor = new Editor(lector.getUsername(), rol);
+        editor.setPasswd(lector.getPasswd());
+        editor.setFollows(lector.follows());
+        return editor;
+    }
+    public static int posicioUsuari(ArrayList<Usuari>usuaris, String username){
+        for (Usuari a : usuaris){
+            if(username.equals(a.getUsername())){
+                return usuaris.indexOf(a);
+            }
+        }
+        return -1;
+    }
+    
 }

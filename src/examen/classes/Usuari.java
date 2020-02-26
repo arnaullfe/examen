@@ -1,6 +1,8 @@
 package examen.classes;
 
-public abstract class Usuari{
+import java.util.ArrayList;
+
+public abstract class Usuari {
     protected String username,passwd,rol;
 
     public Usuari(String username,String rol) {
@@ -34,5 +36,7 @@ public abstract class Usuari{
 
     public abstract String toString();
     public abstract void menuUsuari();
-    
+    public abstract ArrayList<Usuari> follows();
+    public abstract void afegirArray(Usuari usuari);
+    public abstract void veureArray();
 }
