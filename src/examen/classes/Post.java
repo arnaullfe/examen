@@ -69,6 +69,7 @@ public class Post {
     public void mostraTot() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
         System.out.println("----------------------------------");
+        System.out.println("ID del post: "+this.id);
         System.out.println("Data: " + formatter.format(this.dia));
         System.out.println("Titol: " + this.titol);
         System.out.println("Contingut: " + this.contingut);
@@ -84,11 +85,11 @@ public class Post {
     }
 
     public void demanarDades(Scanner sc, String userLogin, ArrayList<Usuari> usuaris ) {
-        System.out.println("Introdueix el títol:");
+        System.out.print("Introdueix el títol: ");
         this.titol = sc.nextLine();
-        System.out.println("Introdueix el contingut:");
+        System.out.print("Introdueix el contingut: ");
         this.contingut=sc.nextLine();
-        System.out.println("El contingut és per majors de 18? (S/N)");
+        System.out.print("El contingut és per majors de 18? (S/N): ");
         String major = sc.nextLine();
         if (major.equalsIgnoreCase("S")) {
             this.majors18=true;

@@ -160,7 +160,9 @@ public class Functions {
             for (Usuari a : usuari.follows()) {
                 if (a.getUsername().equals(b.getCreador().getUsername())) {
                     if ((b.isMajors18()) && (!usuari.major())) {
+                        System.out.println("----------------------------------");
                         System.out.println("Contingut restringit. Usuari Menor d'edat.");
+                        System.out.println("----------------------------------");
                     } else {
                         b.mostraTot();
                     }

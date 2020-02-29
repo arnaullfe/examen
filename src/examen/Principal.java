@@ -19,20 +19,19 @@ public class Principal {
         String[] rols = { "admin", "editor", "lector" };
         int id = 1;
         Functions.benvinguda();
-        System.out.println("Introdueix el nom de l'usuari que tindrà el rol d'administració: ");
+        System.out.print("Introdueix el nom de l'usuari que tindrà el rol d'administració: ");
         usuaris.add(new Admin(sc.nextLine(), rols[0]));
         String passwd;
         String passwdConfirm;
         do {
-            System.out.println("Digues la contrasenya: ");
+            System.out.print("Introdueix el password: ");
             passwd = sc.nextLine();
-            System.out.println("Repeteix la contrsenya: ");
+            System.out.print("Torna a introduir el password: ");
             passwdConfirm = sc.nextLine();
         } while (!Functions.contrasenyaValida(passwd, passwdConfirm));
         System.out.println("Usuari administrador creat, ja pots començar a utilitzar l'aplicació..");
         usuaris.get(0).setPasswd(passwd);
         outloop: while (true) {
-            System.out.println("Que vols fer?");
             Functions.menu();
             int opcio = sc.nextInt();
             sc.nextLine();
@@ -40,12 +39,12 @@ public class Principal {
                 case 1:
                     String userLogin;
                     do {
-                        System.out.println("Introdueix el teu username: ");
+                        System.out.print("Introdueix el teu username: ");
                         userLogin = sc.nextLine();
                     } while (!Functions.usuariExisteix(usuaris, userLogin));
                     String passwdLogin;
                     do {
-                        System.out.println("Intodueix la contrasenya: ");
+                        System.out.print("Intodueix la contrasenya: ");
                         passwdLogin = sc.nextLine();
                     } while (!Functions.comprovarUsuariPasswd(usuaris, userLogin, passwdLogin));
                     System.out.println("Usuari autenticat amb èxit.");
@@ -53,7 +52,6 @@ public class Principal {
                             "EL rol assignat al teu usuari és: " + Functions.getUsuari(usuaris, userLogin).getRol());
                     logout: while (true) {
                         Functions.getUsuari(usuaris, userLogin).menuUsuari();
-                        System.out.println("Que vols fer?");
                         int opcioUsuari = sc.nextInt();
                         sc.nextLine();
                         if (Functions.getUsuari(usuaris, userLogin).getRol().equals(rols[0])) {
@@ -62,7 +60,7 @@ public class Principal {
                                     Post post = new Post(id);
                                     post.demanarDades(sc, userLogin, usuaris);
                                     posts.add(post);
-                                    System.out.println("Post afegit correctament");
+                                    System.out.println("Post afegit correctament...");
                                     id++;
                                     break;
                                 case 2:
@@ -83,7 +81,7 @@ public class Principal {
                                     String usuariCanvi;
                                     do {
                                         Functions.llistar(rols[2], usuaris, userLogin);
-                                        System.out.println("Escriu el nom d'usuari del lector:");
+                                        System.out.print("Escriu el nom d'usuari del lector: ");
                                         usuariCanvi = sc.nextLine();
                                     } while (!Functions.usuariExisteix(usuaris, usuariCanvi));
 
@@ -92,7 +90,7 @@ public class Principal {
                                                 rols[1]));
                                         usuaris.remove(Functions.posicioUsuari(usuaris, usuariCanvi));
                                     } else {
-                                        System.out.println("Error, l'usuari no és lector");
+                                        System.out.println("Error, l'usuari no és lector!!!!");
                                     }
                                     break;
                                 case 5:
@@ -125,7 +123,7 @@ public class Principal {
                                         Functions.llistarEditorsNoSguits(rols[1], usuaris,userLogin, Functions.getUsuari(usuaris, userLogin).follows());
                                     }
                                     System.out.println("-----------------------");
-                                    System.out.println("Escriu el nom de l'editor: ");
+                                    System.out.print("Escriu el nom de l'editor: ");
                                     String editor = sc.nextLine();
                                     if (Functions.usuariExisteix(usuaris, editor)) {
                                         if (Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])) {
@@ -157,7 +155,7 @@ public class Principal {
                                     Functions.llistarEditorsNoSguits(rols[1], usuaris,userLogin, Functions.getUsuari(usuaris, userLogin).follows());
                                 }
                                 System.out.println("-----------------------");
-                                System.out.println("Escriu el nom de l'editor: ");
+                                System.out.print("Escriu el nom de l'editor: ");
                                 String editor = sc.nextLine();
                                 if (Functions.usuariExisteix(usuaris, editor)) {
                                     if (Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])) {
@@ -184,11 +182,11 @@ public class Principal {
                     }
                     break;
                 case 2:
-                    System.out.println("Digues el nom d'usuari únic: ");
+                    System.out.print("Digues el nom d'usuari únic: ");
                     Lector lector = new Lector(sc.nextLine(), rols[2]);
-                    System.out.println("Introdueix el password");
+                    System.out.print("Introdueix el password: ");
                     lector.setPasswd(sc.nextLine());
-                    System.out.println("Introdueix la data de naixament: (dd/MM/yyyy)");
+                    System.out.print("Introdueix la data de naixament: (dd/MM/yyyy) :");
                     lector.setMajor(Functions.major(sc.nextLine()));
                     usuaris.add(lector);
                     break;

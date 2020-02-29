@@ -59,7 +59,6 @@ public class Lector extends Usuari {
         for(Usuari a : this.follows){
             System.out.println(a.username);
         }
-        System.out.println("----------------------------------");
     }
 
     @Override
