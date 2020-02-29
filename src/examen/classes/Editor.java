@@ -54,6 +54,11 @@ public class Editor extends Usuari {
         }
         System.out.println("----------------------------------");
     }
+
+    @Override
+    public boolean major() {
+        return true;
+    }
     
     
 }

@@ -37,141 +37,156 @@ public class Principal {
             int opcio = sc.nextInt();
             sc.nextLine();
             switch (opcio) {
-            case 1:
-                String userLogin;
-                do {
-                    System.out.println("Introdueix el teu username: ");
-                    userLogin = sc.nextLine();
-                } while (!Functions.usuariExisteix(usuaris, userLogin));
-                String passwdLogin;
-                do {
-                    System.out.println("Intodueix la contrasenya: ");
-                    passwdLogin = sc.nextLine();
-                } while (!Functions.comprovarUsuariPasswd(usuaris, userLogin, passwdLogin));
+                case 1:
+                    String userLogin;
+                    do {
+                        System.out.println("Introdueix el teu username: ");
+                        userLogin = sc.nextLine();
+                    } while (!Functions.usuariExisteix(usuaris, userLogin));
+                    String passwdLogin;
+                    do {
+                        System.out.println("Intodueix la contrasenya: ");
+                        passwdLogin = sc.nextLine();
+                    } while (!Functions.comprovarUsuariPasswd(usuaris, userLogin, passwdLogin));
+                    System.out.println("Usuari autenticat amb èxit.");
+                    System.out.println(
+                            "EL rol assignat al teu usuari és: " + Functions.getUsuari(usuaris, userLogin).getRol());
+                    logout: while (true) {
+                        Functions.getUsuari(usuaris, userLogin).menuUsuari();
+                        System.out.println("Que vols fer?");
+                        int opcioUsuari = sc.nextInt();
+                        sc.nextLine();
+                        if (Functions.getUsuari(usuaris, userLogin).getRol().equals(rols[0])) {
+                            switch (opcioUsuari) {
+                                case 1:
+                                    Post post = new Post(id);
+                                    post.demanarDades(sc, userLogin, usuaris);
+                                    posts.add(post);
+                                    System.out.println("Post afegit correctament");
+                                    id++;
+                                    break;
+                                case 2:
+                                    Functions.mostraTotsPosts(posts, sc);
+                                    break;
+                                case 3:
+                                    Functions.mostraPostsInfo(posts);
+                                    int eliminar = sc.nextInt();
+                                    if (Functions.postExisteix(posts, eliminar)) {
+                                        posts.remove(Functions.elimina(posts, eliminar));
+                                        System.out.println("Post eliminat....");
+                                        Functions.mostraPostsInfo(posts);
+                                    } else {
+                                        System.out.println("El post no existeix!! Torna-ho a intentar");
+                                    }
+                                    break;
+                                case 4:
+                                    String usuariCanvi;
+                                    do {
+                                        Functions.llistar(rols[2], usuaris, userLogin);
+                                        System.out.println("Escriu el nom d'usuari del lector:");
+                                        usuariCanvi = sc.nextLine();
+                                    } while (!Functions.usuariExisteix(usuaris, usuariCanvi));
 
-                System.out.println(
-                        "EL rol assignat al teu usuari és: " + Functions.getUsuari(usuaris, userLogin).getRol());
-                logout: while (true) {
-                    Functions.getUsuari(usuaris, userLogin).menuUsuari();
-                    System.out.println("Que vols fer?");
-                    int opcioUsuari = sc.nextInt();
-                    sc.nextLine();
-                    if (Functions.getUsuari(usuaris, userLogin).getRol().equals(rols[0])) {
-                        switch (opcioUsuari) {
-                        case 1:
-                            System.out.println("Introdueix el títol:");
-                            Post post = new Post(sc.nextLine(),id);
-                            System.out.println("Introdueix el contingut:");
-                            post.setContingut(sc.nextLine());
-                            System.out.println("El contingut és per majors de 18? (S/N)");
-                            String major = sc.nextLine();
-                            if (major.equalsIgnoreCase("S")) {
-                                post.setMajors18(true);
-                            } else {
-                                post.setMajors18(false);
+                                    if (Functions.getUsuari(usuaris, usuariCanvi).getRol().equals(rols[2])) {
+                                        usuaris.add(Functions.LectorToEditor(Functions.getUsuari(usuaris, usuariCanvi),
+                                                rols[1]));
+                                        usuaris.remove(Functions.posicioUsuari(usuaris, usuariCanvi));
+                                    } else {
+                                        System.out.println("Error, l'usuari no és lector");
+                                    }
+                                    break;
+                                case 5:
+                                    Functions.llistar(rols[1], usuaris, userLogin);
+                                    System.out.println("-----------------------");
+                                    System.out.println("Enter per continuar");
+                                    sc.nextLine();
+                                    break;
+                                case 6:
+                                    Functions.llistar(rols[2], usuaris, userLogin);
+                                    System.out.println("-----------------------");
+                                    System.out.println("Enter per continuar");
+                                    sc.nextLine();
+                                    break;
+                                case 0:
+                                    break logout;
                             }
-                            post.setCreador(Functions.getUsuari(usuaris, userLogin));
-                            post.setDia(LocalDateTime.now());
-                            posts.add(post);
-                            id++;
-                            break;
-                        case 2:
-                            Functions.mostraTotsPosts(posts,sc);
-                            break;
-                        case 3:
-                            Functions.mostraPostsInfo(posts);
-                            int eliminar = sc.nextInt();
-                            if(Functions.postExisteix(posts, eliminar)){
-                                posts.remove(Functions.elimina(posts, eliminar));
-                                System.out.println("Post eliminat....");
-                                Functions.mostraPostsInfo(posts);
-                            } else {
-                                System.out.println("El post no existeix!! Torna-ho a intentar");
+                        } else if (Functions.getUsuari(usuaris, userLogin).getRol().equals(rols[1])) {
+                            switch (opcioUsuari) {
+                                case 1:
+                                    Post post = new Post(id);
+                                    post.demanarDades(sc, userLogin, usuaris);
+                                    posts.add(post);
+                                    id++;
+                                    break;
+                                case 2:
+                                    Functions.llistar(rols[1], usuaris, userLogin);
+                                    System.out.println("-----------------------");
+                                    System.out.println("Escriu el nom de l'editor: ");
+                                    String editor = sc.nextLine();
+                                    if (Functions.usuariExisteix(usuaris, editor)) {
+                                        if (Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])) {
+                                            usuaris.get(Functions.posicioUsuari(usuaris, userLogin))
+                                                    .afegirArray(Functions.getUsuari(usuaris, editor));
+                                            System.out.println("Estas seguint a l'editor " + editor);
+                                        } else {
+                                            System.out.println("L'usuari no és editor");
+                                        }
+                                    } else {
+                                        System.out.println("Error, l'usuari no existeix");
+                                    }
+                                    break;
+                                case 3:
+                                    Functions.getUsuari(usuaris, userLogin).veureArray();
+                                    break;
+                                case 4:
+                                    Functions.meuMur(posts, Functions.getUsuari(usuaris, userLogin));
+                                    break;
+                                case 0:
+                                    break logout;
                             }
-                            break;
-                        case 4:
-                        String usuariCanvi;
-                            do{
-                                Functions.llistar(rols[2], usuaris);
-                                System.out.println("Escriu el nom d'usuari del lector:");
-                                usuariCanvi = sc.nextLine();
-                            } while (!Functions.usuariExisteix(usuaris, usuariCanvi));
-                            
-                            if(Functions.getUsuari(usuaris,usuariCanvi).getRol().equals(rols[2])){
-                                usuaris.add(Functions.LectorToEditor(Functions.getUsuari(usuaris, usuariCanvi), rols[1]));
-                                usuaris.remove(Functions.posicioUsuari(usuaris, usuariCanvi));
-                            } else{
-                                System.out.println("Error, l'usuari no és lector");
+                        } else {
+                            switch (opcioUsuari) {
+                                case 1:
+                                    Functions.llistar(rols[1], usuaris, userLogin);
+                                    System.out.println("-----------------------");
+                                    System.out.println("Escriu el nom de l'editor: ");
+                                    String editor = sc.nextLine();
+                                    if (Functions.usuariExisteix(usuaris, editor)) {
+                                        if (Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])) {
+                                            usuaris.get(Functions.posicioUsuari(usuaris, userLogin))
+                                                    .afegirArray(Functions.getUsuari(usuaris, editor));
+                                            System.out.println("Estas seguint a l'editor " + editor);
+                                        } else {
+                                            System.out.println("L'usuari no és editor");
+                                        }
+                                    } else {
+                                        System.out.println("Error, l'usuari no existeix");
+                                    }
+                                    break;
+                                case 2:
+                                    Functions.getUsuari(usuaris, userLogin).veureArray();
+                                    break;
+                                case 3:
+                                    Functions.meuMur(posts,Functions.getUsuari(usuaris, userLogin));
+                                    break;
+                                case 0:
+                                    break logout;
                             }
-                            break;
-                        case 5:
-                            Functions.llistar(rols[1], usuaris);
-                            System.out.println("-----------------------");
-                            System.out.println("Enter per continuar");
-                            sc.nextLine();
-                            break;
-                        case 6:
-                            Functions.llistar(rols[2], usuaris);
-                            System.out.println("-----------------------");
-                            System.out.println("Enter per continuar");
-                            sc.nextLine();
-                            break;
-                        case 0:
-                            break logout;
-                        }
-                    } else if (Functions.getUsuari(usuaris, userLogin).getRol().equals(rols[1])){
-                        switch(opcioUsuari){
-                            case 1:
-                            System.out.println("Introdueix el títol:");
-                            Post post = new Post(sc.nextLine(),id);
-                            System.out.println("Introdueix el contingut:");
-                            post.setContingut(sc.nextLine());
-                            System.out.println("El contingut és per majors de 18? (S/N)");
-                            String major = sc.nextLine();
-                            if (major.equalsIgnoreCase("S")) {
-                                post.setMajors18(true);
-                            } else {
-                                post.setMajors18(false);
-                            }
-                            post.setCreador(Functions.getUsuari(usuaris, userLogin));
-                            post.setDia(LocalDateTime.now());
-                            posts.add(post);
-                            id++;
-                            break;
-                            case 2:
-                            Functions.llistar(rols[1], usuaris);
-                            System.out.println("-----------------------");
-                            System.out.println("Escriu el nom de l'editor: ");
-                            String editor = sc.nextLine();
-                            if(Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])){
-                                usuaris.get(Functions.posicioUsuari(usuaris, userLogin)).afegirArray(Functions.getUsuari(usuaris, editor));
-                            } else{
-                                System.out.println("L'usuari no és editor");
-                            }
-                            break;
-                            case 3:
-                            Functions.getUsuari(usuaris,userLogin).veureArray();
-                            break;
-                            case 4:
-                            //meu mur
-                            break;
                         }
                     }
-
-                }
-                break;
-            case 2:
-                System.out.println("Digues el nom d'usuari únic: ");
-                Lector lector = new Lector(sc.nextLine(), rols[2]);
-                System.out.println("Introdueix el password");
-                lector.setPasswd(sc.nextLine());
-                System.out.println("Introdueix la data de naixament: (dd/MM/yyyy)");
-                lector.setMajor(Functions.major(sc.nextLine()));
-                usuaris.add(lector);
-                break;
-            case 3:
-                System.out.println("Fins un altre!");
-                break outloop;
+                    break;
+                case 2:
+                    System.out.println("Digues el nom d'usuari únic: ");
+                    Lector lector = new Lector(sc.nextLine(), rols[2]);
+                    System.out.println("Introdueix el password");
+                    lector.setPasswd(sc.nextLine());
+                    System.out.println("Introdueix la data de naixament: (dd/MM/yyyy)");
+                    lector.setMajor(Functions.major(sc.nextLine()));
+                    usuaris.add(lector);
+                    break;
+                case 3:
+                    System.out.println("Fins un altre!");
+                    break outloop;
             }
         }
 

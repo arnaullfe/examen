@@ -39,4 +39,5 @@ public abstract class Usuari {
     public abstract ArrayList<Usuari> follows();
     public abstract void afegirArray(Usuari usuari);
     public abstract void veureArray();
+    public abstract boolean major();
 }

@@ -34,8 +34,12 @@ public class Lector extends Usuari {
 
     @Override
     public void menuUsuari() {
-        // TODO Auto-generated method stub
-
+        System.out.println("-------------------------------");
+        System.out.println("1 - Seguir a un editor nou");
+        System.out.println("2 - Veure editors que segueixo");
+        System.out.println("3 - Mirar el meu mur");
+        System.out.println("0 - Log out");
+        System.out.println("-------------------------------");
     }
 
     @Override
@@ -56,6 +60,11 @@ public class Lector extends Usuari {
             System.out.println(a.username);
         }
         System.out.println("----------------------------------");
+    }
+
+    @Override
+    public boolean major() {
+        return this.major;
     }
 
    

@@ -44,5 +44,11 @@ public class Admin extends Usuari {
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public boolean major() {
+        // TODO Auto-generated method stub
+        return false;
+    }
     
 }

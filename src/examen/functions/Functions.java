@@ -68,7 +68,7 @@ public class Functions {
             }
         }
         if(!existeix){
-            System.out.println("L'usuari indict no existeix!");
+            System.out.println("L'usuari indicat no existeix!");
         }
         return existeix;
     }
@@ -138,4 +138,29 @@ public class Functions {
         }
         return false;
     }
+    public static void meuMur(ArrayList<Post> posts,Usuari usuari){
+        for(Post b : posts){
+            if(b.getCreador().getRol().equals("admin")){
+                if((b.isMajors18()) && (!usuari.major())){
+                    System.out.println("Contingut restringit. Usuari Menor d'edat.");
+                } else{
+                    b.mostraTot();
+                }
+                System.out.println("Enter per continuar: ");
+                System.console().readLine();
+            }
+            for(Usuari a: usuari.follows()){
+                if(a.getUsername().equals(b.getCreador().getUsername())){
+                    if((b.isMajors18()) && (!usuari.major())){
+                        System.out.println("Contingut restringit. Usuari Menor d'edat.");
+                    } else{
+                        b.mostraTot();
+                    }
+                    System.out.println("Enter per continuar: ");
+                    System.console().readLine();
+                }
+            }
+        }
+    }
+    
 }
