@@ -119,7 +119,11 @@ public class Principal {
                                     id++;
                                     break;
                                 case 2:
-                                    Functions.llistar(rols[1], usuaris, userLogin);
+                                    if(Functions.getUsuari(usuaris, userLogin).follows().size()==0){
+                                        Functions.llistar(rols[1], usuaris, userLogin);
+                                    } else{
+                                        Functions.llistarEditorsNoSguits(rols[1], usuaris,userLogin, Functions.getUsuari(usuaris, userLogin).follows());
+                                    }
                                     System.out.println("-----------------------");
                                     System.out.println("Escriu el nom de l'editor: ");
                                     String editor = sc.nextLine();
@@ -147,21 +151,25 @@ public class Principal {
                         } else {
                             switch (opcioUsuari) {
                                 case 1:
+                                if(Functions.getUsuari(usuaris, userLogin).follows().size()==0){
                                     Functions.llistar(rols[1], usuaris, userLogin);
-                                    System.out.println("-----------------------");
-                                    System.out.println("Escriu el nom de l'editor: ");
-                                    String editor = sc.nextLine();
-                                    if (Functions.usuariExisteix(usuaris, editor)) {
-                                        if (Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])) {
-                                            usuaris.get(Functions.posicioUsuari(usuaris, userLogin))
-                                                    .afegirArray(Functions.getUsuari(usuaris, editor));
-                                            System.out.println("Estas seguint a l'editor " + editor);
-                                        } else {
-                                            System.out.println("L'usuari no és editor");
-                                        }
+                                } else{
+                                    Functions.llistarEditorsNoSguits(rols[1], usuaris,userLogin, Functions.getUsuari(usuaris, userLogin).follows());
+                                }
+                                System.out.println("-----------------------");
+                                System.out.println("Escriu el nom de l'editor: ");
+                                String editor = sc.nextLine();
+                                if (Functions.usuariExisteix(usuaris, editor)) {
+                                    if (Functions.getUsuari(usuaris, editor).getRol().equals(rols[1])) {
+                                        usuaris.get(Functions.posicioUsuari(usuaris, userLogin))
+                                                .afegirArray(Functions.getUsuari(usuaris, editor));
+                                        System.out.println("Estas seguint a l'editor " + editor);
                                     } else {
-                                        System.out.println("Error, l'usuari no existeix");
+                                        System.out.println("L'usuari no és editor");
                                     }
+                                } else {
+                                    System.out.println("Error, l'usuari no existeix");
+                                }
                                     break;
                                 case 2:
                                     Functions.getUsuari(usuaris, userLogin).veureArray();
