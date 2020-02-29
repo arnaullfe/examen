@@ -148,7 +148,7 @@ public class Functions {
 
     public static void meuMur(ArrayList<Post> posts, Usuari usuari) {
         for (Post b : posts) {
-            if (b.getCreador().getRol().equals("admin")) {
+            if (b.getCreador().getRol().equals("admin") || usuari.getUsername().equals(b.getCreador().getUsername())) {
                 if ((b.isMajors18()) && (!usuari.major())) {
                     System.out.println("Contingut restringit. Usuari Menor d'edat.");
                 } else {
