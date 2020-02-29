@@ -81,14 +81,22 @@ public class Principal {
                         case 3:
                             Functions.mostraPostsInfo(posts);
                             int eliminar = sc.nextInt();
-                            posts.remove(Functions.elimina(posts, eliminar));
-                            System.out.println("Post eliminat....");
-                            Functions.mostraPostsInfo(posts);
+                            if(Functions.postExisteix(posts, eliminar)){
+                                posts.remove(Functions.elimina(posts, eliminar));
+                                System.out.println("Post eliminat....");
+                                Functions.mostraPostsInfo(posts);
+                            } else {
+                                System.out.println("El post no existeix!! Torna-ho a intentar");
+                            }
                             break;
                         case 4:
-                            Functions.llistar(rols[2], usuaris);
-                            System.out.println("Escriu el nom d'usuari del lector:");
-                            String usuariCanvi = sc.nextLine();
+                        String usuariCanvi;
+                            do{
+                                Functions.llistar(rols[2], usuaris);
+                                System.out.println("Escriu el nom d'usuari del lector:");
+                                usuariCanvi = sc.nextLine();
+                            } while (!Functions.usuariExisteix(usuaris, usuariCanvi));
+                            
                             if(Functions.getUsuari(usuaris,usuariCanvi).getRol().equals(rols[2])){
                                 usuaris.add(Functions.LectorToEditor(Functions.getUsuari(usuaris, usuariCanvi), rols[1]));
                                 usuaris.remove(Functions.posicioUsuari(usuaris, usuariCanvi));

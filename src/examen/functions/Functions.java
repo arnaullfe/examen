@@ -130,4 +130,12 @@ public class Functions {
         return -1;
     }
     
+    public static boolean postExisteix(ArrayList<Post> posts, int post){
+        for (Post a: posts){
+            if(post==a.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }
