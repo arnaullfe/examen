@@ -9,12 +9,6 @@ public class Admin extends Usuari {
     }
 
     @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public void menuUsuari() {
         System.out.println("-------------------------------");
         System.out.println("1 - Crear un post");
@@ -29,26 +23,20 @@ public class Admin extends Usuari {
 
     @Override
     public ArrayList<Usuari> follows() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void afegirArray(Usuari usuari) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void veureArray() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public boolean major() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
     
 }

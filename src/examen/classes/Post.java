@@ -18,52 +18,16 @@ public class Post {
         this.id = id;
     }
 
-    public String getTitol() {
-        return titol;
-    }
-
-    public void setTitol(String titol) {
-        this.titol = titol;
-    }
-
-    public String getContingut() {
-        return contingut;
-    }
-
-    public void setContingut(String contingut) {
-        this.contingut = contingut;
-    }
-
     public Usuari getCreador() {
         return creador;
-    }
-
-    public void setCreador(Usuari creador) {
-        this.creador = creador;
     }
 
     public boolean isMajors18() {
         return majors18;
     }
 
-    public void setMajors18(boolean majors18) {
-        this.majors18 = majors18;
-    }
-
-    public LocalDateTime getDia() {
-        return dia;
-    }
-
-    public void setDia(LocalDateTime dia) {
-        this.dia = dia;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void mostraTot() {

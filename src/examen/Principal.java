@@ -1,9 +1,7 @@
 package examen;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.function.Function;
 
 import examen.classes.Admin;
 import examen.classes.Lector;

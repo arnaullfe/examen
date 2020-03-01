@@ -10,27 +10,10 @@ public class Lector extends Usuari {
         super(username,rol);
     }
 
-    public ArrayList<Usuari> getFollows() {
-        return follows;
-    }
-
-    public void setFollows(ArrayList<Usuari> follows) {
-        this.follows = follows;
-    }
-
-    public boolean isMajor() {
-        return major;
-    }
-
     public void setMajor(boolean major) {
         this.major = major;
     }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public void menuUsuari() {

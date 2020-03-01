@@ -9,18 +9,8 @@ public class Editor extends Usuari {
         super(username,rol);
     }
 
-    public ArrayList<Usuari> getFollows() {
-        return follows;
-    }
-
     public void setFollows(ArrayList<Usuari> follows) {
         this.follows = follows;
-    }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

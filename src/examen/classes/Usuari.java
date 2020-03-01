@@ -14,9 +14,6 @@ public abstract class Usuari {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPasswd() {
         return passwd;
@@ -30,11 +27,6 @@ public abstract class Usuari {
         return rol;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public abstract String toString();
     public abstract void menuUsuari();
     public abstract ArrayList<Usuari> follows();
     public abstract void afegirArray(Usuari usuari);
